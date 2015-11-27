@@ -3,6 +3,12 @@
 <head>
     <title>Servlet Page</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <style>
+        div {
+            border: 1px blue solid;
+            padding: 0.2em;
+        }
+    </style>
 </head>
 <body>
 <script>
@@ -20,19 +26,20 @@
             contentType: 'application/json',
             data: JSON.stringify(param),
             type: 'POST',
-            success: Parameter,
+            success: function (responseJson) {
+                var $select = $("#someselect");
+                $select.find("option").remove();
+                $.each(responseJson, function (key, value) {
+                    $("<option>").val(key).text(value).appendTo($select);
+                });
+            },
 
             error: function (xhr, status, errorThrown) {
                 alert('  status: ' + status + '. ' + errorThrown);
             }
         });
     }
-    function Parameter(output) {
-        $.each(output, function (index, value) {
-            $("#" + index).html(value);
-        });
-        $('.content').show();
-    }
+
 </script>
 
 <form action="" method="post">
@@ -65,14 +72,8 @@
         <input type="reset" value="Reset">
     </p>
 </form>
-<div class="content" style="color: blue">
-    <div id="0"></div>
-    <div id="1"></div>
-    <div id="2"></div>
-    <div id="3"></div>
-    <div id="4"></div>
-    <div id="5"></div>
-    <div id="6"></div>
-</div>
+
+<div id="someselect" style="color: blue" ></div>
+
 </body>
 </html>

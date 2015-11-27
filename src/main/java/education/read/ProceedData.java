@@ -18,6 +18,8 @@ public class ProceedData {
         File file = new File(fileName);
         Matcher matcher = null;
         String currentLine = "";
+        String selection = "";
+
 
         try {
             Scanner scanner = new Scanner(file);
@@ -35,11 +37,12 @@ public class ProceedData {
             while (matcher.find()) {
                 String value = matcher.group();
                 if (length != null && value.length() >= length) {
-                    arrayList.add(value.substring(0, length) + ", ");
+                    selection += (value.substring(0, length) + ", ");
                 } else {
-                    arrayList.add(value + ", ");
+                    selection += (value + ", ");
                 }
             }
+            arrayList.add(selection);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -47,7 +50,7 @@ public class ProceedData {
         return arrayList;
     }
 
-    public ArrayList metaData(String fileName) throws IOException {
+    public ArrayList<String> metaData(String fileName) throws IOException {
 
         File file = new File(fileName);
         String nameFile = file.getName();
@@ -61,7 +64,7 @@ public class ProceedData {
         FileTime creationTime = attributes.creationTime();
         String stringData = "Data create: " + creationTime;
 
-        ArrayList<Object> arrayList = new ArrayList<Object>();
+        ArrayList<String> arrayList = new ArrayList<String>();
         arrayList.add(stringSize);
         arrayList.add(stringName);
         arrayList.add(stringData);
