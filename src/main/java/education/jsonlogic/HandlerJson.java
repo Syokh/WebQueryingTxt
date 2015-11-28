@@ -69,6 +69,8 @@ public class HandlerJson {
     public StringBuffer parsingJson(HttpServletRequest request) {
         StringBuffer jb = new StringBuffer();
         String line;
+        String t =request.getParameter("limit");
+        System.out.println("))))  " + t);
         try {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
